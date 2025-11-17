@@ -7,7 +7,7 @@
  * Created: 2025-11-16
  * --------------------------------------------------------------------------- */
 
-
+using System;
 using System.Threading;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver.Dataset;
@@ -46,7 +46,7 @@ namespace Bev.Instruments.Thorlabs.Ctt
         public bool IsShutterOpen => spectrometer.ShutterOpen;
         public bool IsSaturated => spectrometer.IsSaturated;
         public bool IsLedIndicatorOn => spectrometer.LedIndicatorOn;
-
+        public DateTime DeviceStartDate => spectrometer.HardwareStarted;
 
         // Integration time in seconds
         public double GetIntegrationTime()

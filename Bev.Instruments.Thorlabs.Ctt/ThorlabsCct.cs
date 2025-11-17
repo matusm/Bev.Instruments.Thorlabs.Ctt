@@ -99,6 +99,16 @@ namespace Bev.Instruments.Thorlabs.Ctt
             return spectrometer.TemperatureElectronics;
         }
 
+        public void SwitchLedIndicatorOn()
+        {
+            spectrometer.SetLedIndicatorAsync(on: true, CancellationToken.None).Wait();
+        }
+
+        public void SwitchLedIndicatorOff()
+        {
+            spectrometer.SetLedIndicatorAsync(on: false, CancellationToken.None).Wait();
+        }
+
         public ISpectrumXY AcquireSingleSpectrum()
         {
             spectrometer.AcquireSingleSpectrumAsync(CancellationToken.None).Wait();

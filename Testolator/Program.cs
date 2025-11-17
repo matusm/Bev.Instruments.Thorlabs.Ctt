@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Bev.Instruments.Thorlabs.Ctt;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver.Dataset;
 
@@ -21,11 +22,24 @@ namespace Testolator
             Console.WriteLine($"Maximum Wavelength: {cct.MaximumWavelength} nm");
             Console.WriteLine();
 
-            Console.WriteLine($"Integration Time:   {cct.GetIntegrationTime()} s");
-            Console.WriteLine($"Is Shutter Open:    {cct.IsShutterOpen}");
-            Console.WriteLine($"Temperature:        {cct.Temperature} °C");
-            cct.SetIntegrationTime(0.5);
-            Console.WriteLine($"Integration Time set to: {cct.GetIntegrationTime()} s");
+            for (int i = 0; i < 200; i++)
+            {
+                cct.SwitchLedIndicatorOff();
+                Console.WriteLine($"LED: {cct.IsLedIndicatorOn}");
+                Thread.Sleep(500);
+                cct.SwitchLedIndicatorOn();
+                Console.WriteLine($"LED: {cct.IsLedIndicatorOn}");
+                Thread.Sleep(500);
+            }
+
+
+
+
+            //Console.WriteLine($"Integration Time:   {cct.GetIntegrationTime()} s");
+            //Console.WriteLine($"Is Shutter Open:    {cct.IsShutterOpen}");
+            //Console.WriteLine($"Temperature:        {cct.Temperature} °C");
+            //cct.SetIntegrationTime(0.5);
+            //Console.WriteLine($"Integration Time set to: {cct.GetIntegrationTime()} s");
 
             ISpectrumXY spec;
             double[] wavelengths;

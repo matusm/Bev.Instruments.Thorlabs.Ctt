@@ -11,6 +11,7 @@ using System;
 using System.Threading;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver.Dataset;
+using Bev.Instruments.ArraySpectrometer.Abstractions;
 
 namespace Bev.Instruments.Thorlabs.Ctt
 {

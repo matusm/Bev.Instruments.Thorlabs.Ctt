@@ -13,6 +13,7 @@ namespace Testolator
             var cct = new ThorlabsCct();
 
             Console.WriteLine($"DeviceId:           {cct.DeviceId}");
+            Console.WriteLine($"DeviceStarted:      {cct.DeviceStartDate}");
             Console.WriteLine($"Manufacturer:       {cct.InstrumentManufacturer}");
             Console.WriteLine($"Type:               {cct.InstrumentType}");
             Console.WriteLine($"SerialNumber:       {cct.InstrumentSerialNumber}");
@@ -21,18 +22,6 @@ namespace Testolator
             Console.WriteLine($"Minimum Wavelength: {cct.MinimumWavelength} nm");
             Console.WriteLine($"Maximum Wavelength: {cct.MaximumWavelength} nm");
             Console.WriteLine();
-
-            for (int i = 0; i < 200; i++)
-            {
-                cct.SwitchLedIndicatorOff();
-                Console.WriteLine($"LED: {cct.IsLedIndicatorOn}");
-                Thread.Sleep(500);
-                cct.SwitchLedIndicatorOn();
-                Console.WriteLine($"LED: {cct.IsLedIndicatorOn}");
-                Thread.Sleep(500);
-            }
-
-
 
 
             //Console.WriteLine($"Integration Time:   {cct.GetIntegrationTime()} s");

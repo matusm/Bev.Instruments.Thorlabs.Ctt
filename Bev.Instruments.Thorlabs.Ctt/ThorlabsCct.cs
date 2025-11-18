@@ -43,11 +43,11 @@ namespace Bev.Instruments.Thorlabs.Ctt
         public double MinimumWavelength => wavelengthsCache[0];
         public double MaximumWavelength => wavelengthsCache[wavelengthsCache.Length-1];
 
-        public float Temperature => spectrometer.TemperatureElectronics;
         public bool IsShutterOpen => spectrometer.ShutterOpen;
         public bool IsSaturated => spectrometer.IsSaturated;
         public bool IsLedIndicatorOn => spectrometer.LedIndicatorOn;
         public DateTime DeviceStartDate => spectrometer.HardwareStarted;
+        public float Temperature => GetTemperature();
 
         // Integration time in seconds
         public double GetIntegrationTime()

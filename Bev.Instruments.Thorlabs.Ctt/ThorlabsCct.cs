@@ -18,7 +18,7 @@ namespace Bev.Instruments.Thorlabs.Ctt
     public partial class ThorlabsCct : IArraySpectrometer
     {
         private ICompactSpectrographDriver spectrometer;
-        private double[] wavelengthsCache;
+        private double[] wavelengthsCache; // values must be ordered ascending
 
         public ThorlabsCct()
         {

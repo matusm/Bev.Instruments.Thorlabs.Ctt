@@ -115,6 +115,7 @@
     <Compile Include="ThorlabsCct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThorlabsCctHelper.cs" />
+    <Compile Include="ThorlabsCctTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

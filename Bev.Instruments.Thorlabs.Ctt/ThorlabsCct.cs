@@ -48,6 +48,9 @@ namespace Bev.Instruments.Thorlabs.Ctt
         public bool IsLedIndicatorOn => spectrometer.LedIndicatorOn;
         public DateTime DeviceStartDate => spectrometer.HardwareStarted;
         public float Temperature => GetTemperature();
+        public int AdcBits => spectrometer.ResolutionAdc;
+        public float AdcOffset => spectrometer.ManualOffset;
+        public float AdcGain => spectrometer.ManualGain;
 
         // Integration time in seconds
         public double GetIntegrationTime()

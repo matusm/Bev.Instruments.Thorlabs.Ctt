@@ -4,9 +4,9 @@ namespace Bev.Instruments.Thorlabs.Ctt
 {
     public static class Exposure
     {
-        public static double GetOptimalExposureTime(this ThorlabsCct cct) => cct.GetOptimalExposureTime(0.95 * (double)0xFFFF, false);
+        public static double GetOptimalExposureTime(this ThorlabsCct cct) => cct.GetOptimalExposureTime(0.95 * cct.SaturationLevel, false);
 
-        public static double GetOptimalExposureTime(this ThorlabsCct cct, bool debug) => cct.GetOptimalExposureTime(0.95 * (double)0xFFFF, debug);
+        public static double GetOptimalExposureTime(this ThorlabsCct cct, bool debug) => cct.GetOptimalExposureTime(0.95 * cct.SaturationLevel, debug);
 
         public static double GetOptimalExposureTime(this ThorlabsCct cct, double targetSignal, bool debug)
         {

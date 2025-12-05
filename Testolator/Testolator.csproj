@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="At.Matus.MetaData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="At.Matus.OpticalSpectrumLib">
+      <HintPath>..\..\At.Matus.OpticalSpectrumLib\At.Matus.OpticalSpectrumLib\bin\Release\At.Matus.OpticalSpectrumLib.dll</HintPath>
+    </Reference>
     <Reference Include="Bev.Instruments.Thorlabs.Ctt">
       <HintPath>..\Bev.Instruments.Thorlabs.Ctt\bin\Release\Bev.Instruments.Thorlabs.Ctt.dll</HintPath>
     </Reference>
@@ -50,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

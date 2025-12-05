@@ -42,6 +42,7 @@ namespace Bev.Instruments.Thorlabs.Ctt
         public double[] Wavelengths => wavelengthsCache;
         public double MinimumWavelength => wavelengthsCache[0];
         public double MaximumWavelength => wavelengthsCache[wavelengthsCache.Length-1];
+        public double SaturationLevel => (double)0xFFFF;
 
         public bool IsShutterOpen => spectrometer.ShutterOpen;
         public bool IsSaturated => spectrometer.IsSaturated;

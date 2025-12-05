@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Bev.Instruments.Thorlabs.Ctt;
+using At.Matus.OpticalSpectrumLib;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver.Dataset;
 
 namespace Testolator
@@ -29,9 +30,7 @@ namespace Testolator
             Console.WriteLine($"Temperature:        {cct.Temperature} °C");
             Console.WriteLine($"Hardware averaging: {cct.GetHardwareAveraging()}");
 
-
-
-            cct.SetHardwareAveraging(10);
+            cct.SetHardwareAveraging(1);
 
 
             Console.WriteLine();
@@ -40,25 +39,43 @@ namespace Testolator
 
             Console.WriteLine();
             cct.OpenShutter();
-            Console.WriteLine($"Is Shutter Open: {cct.IsShutterOpen}");
-            var spec1 = cct.AcquireSingleSpectrum();
-            Console.WriteLine($"Single spectrum: {spec1.GetMaxIntensity()}");
 
-            Console.WriteLine();
-            Console.WriteLine($"Is Shutter Open: {cct.IsShutterOpen}");
-            var spec3 = cct.AcquireBackgroundSpectrum();
-            Console.WriteLine($"Background spectrum: {spec3.GetMaxIntensity()}");
+            MeasuredOpticalSpectrum spec1 = new MeasuredOpticalSpectrum(cct.Wavelengths);
+            MeasuredOpticalSpectrum spec2 = new MeasuredOpticalSpectrum(cct.Wavelengths);
 
-            Console.WriteLine();
+            cct.OpenShutter();
+            spec1.UpdateSignal(cct.GetIntensityData());
+            spec1.UpdateSignal(cct.GetIntensityData());
+            spec1.AddMetaDataRecord("Name", "Name of first spectrum");    
+            spec1.AddMetaDataRecord("Date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            spec1.AddMetaDataRecord("IntegrationTime_s", cct.GetIntegrationTime().ToString("F3"));
+            spec1.AddMetaDataRecord("HardwareAveraging", cct.GetHardwareAveraging().ToString());
+            spec1.AddMetaDataRecord("ShutterOpen", cct.IsShutterOpen.ToString());
+
+            cct.SetIntegrationTime(0.3);
+
             cct.CloseShutter();
-            Console.WriteLine($"Is Shutter Open: {cct.IsShutterOpen}");
-            var spec2 = cct.AcquireDarkSpectrum();
-            Console.WriteLine($"Dark spectrum: {spec2.GetMaxIntensity()}");
+            spec2.UpdateSignal(cct.GetIntensityData());
+            spec2.UpdateSignal(cct.GetIntensityData());
+            spec2.UpdateSignal(cct.GetIntensityData());
+            spec2.AddMetaDataRecord("Name", "Name of second spectrum");
+            spec2.AddMetaDataRecord("Date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            spec2.AddMetaDataRecord("IntegrationTime_s", cct.GetIntegrationTime().ToString("F3"));
+            spec2.AddMetaDataRecord("HardwareAveraging", cct.GetHardwareAveraging().ToString());
+            spec2.AddMetaDataRecord("ShutterOpen", cct.IsShutterOpen.ToString());
+
+            var spec3 = SpecMath.Subtract(spec1, spec2);
+            spec3.AddMetaDataRecord("Name", "Subtracted spectrum (spec1 - spec2)");
 
             Console.WriteLine();
-            Console.WriteLine($"Single spectrum:     {cct.GetSingleSpectrum().GetMaxIntensity()}");
-            Console.WriteLine($"Background spectrum: {cct.GetBackgroundSpectrum().GetMaxIntensity()}");
-            Console.WriteLine($"Dark spectrum:       {cct.GetDarkSpectrum().GetMaxIntensity()}");
+            Console.WriteLine(spec1.GetInfoString());
+            Console.WriteLine();
+            Console.WriteLine(spec2.GetInfoString());
+            Console.WriteLine();
+            Console.WriteLine(spec3.GetInfoString());
+
+
+
 
 
             //cct.GetOptimalExposureTime(true);

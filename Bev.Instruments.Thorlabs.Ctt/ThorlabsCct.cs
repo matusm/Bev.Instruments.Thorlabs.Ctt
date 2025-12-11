@@ -43,6 +43,8 @@ namespace Bev.Instruments.Thorlabs.Ctt
         public double MinimumWavelength => wavelengthsCache[0];
         public double MaximumWavelength => wavelengthsCache[wavelengthsCache.Length-1];
         public double SaturationLevel => (double)0xFFFF;
+        public double MinimumIntegrationTime => 0.00001; // seconds
+        public double MaximumIntegrationTime => 30.0; // seconds
 
         public bool IsShutterOpen => spectrometer.ShutterOpen;
         public bool IsSaturated => spectrometer.IsSaturated;
@@ -63,9 +65,9 @@ namespace Bev.Instruments.Thorlabs.Ctt
         // Integration time in seconds
         public void SetIntegrationTime(double timeSeconds)
         {
+            if (timeSeconds < MinimumIntegrationTime) timeSeconds = MinimumIntegrationTime;
+            if (timeSeconds > MaximumIntegrationTime) timeSeconds = MaximumIntegrationTime;
             double timeMs = timeSeconds * 1000.0;
-            if(timeMs < 0.01) timeMs = 0.01;
-            if(timeMs > 30000) timeMs = 30000;
             spectrometer.SetManualExposureAsync(exposure: (float)timeMs, CancellationToken.None).Wait();
         }
 

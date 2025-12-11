@@ -110,7 +110,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exposure.cs" />
     <Compile Include="SpectrumXYUtils.cs" />
     <Compile Include="ThorlabsCct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

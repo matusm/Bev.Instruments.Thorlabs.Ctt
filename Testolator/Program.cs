@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading;
+﻿using At.Matus.OpticalSpectrumLib;
 using Bev.Instruments.Thorlabs.Ctt;
-using At.Matus.OpticalSpectrumLib;
-using Thorlabs.ManagedDevice.CompactSpectrographDriver.Dataset;
+using System;
 
 namespace Testolator
 {
@@ -46,7 +44,7 @@ namespace Testolator
             cct.OpenShutter();
             spec1.UpdateSignal(cct.GetIntensityData());
             spec1.UpdateSignal(cct.GetIntensityData());
-            spec1.AddMetaDataRecord("Name", "Name of first spectrum");    
+            spec1.AddMetaDataRecord("Name", "Name of first spectrum");
             spec1.AddMetaDataRecord("Date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             spec1.AddMetaDataRecord("IntegrationTime_s", cct.GetIntegrationTime().ToString("F3"));
             spec1.AddMetaDataRecord("HardwareAveraging", cct.GetHardwareAveraging().ToString());

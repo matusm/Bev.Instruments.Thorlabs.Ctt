@@ -7,11 +7,11 @@
  * Created: 2025-11-16
  * --------------------------------------------------------------------------- */
 
+using Bev.Instruments.ArraySpectrometer.Abstractions;
 using System;
 using System.Threading;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver;
 using Thorlabs.ManagedDevice.CompactSpectrographDriver.Dataset;
-using Bev.Instruments.ArraySpectrometer.Abstractions;
 
 namespace Bev.Instruments.Thorlabs.Ctt
 {
@@ -41,7 +41,7 @@ namespace Bev.Instruments.Thorlabs.Ctt
 
         public double[] Wavelengths => wavelengthsCache;
         public double MinimumWavelength => wavelengthsCache[0];
-        public double MaximumWavelength => wavelengthsCache[wavelengthsCache.Length-1];
+        public double MaximumWavelength => wavelengthsCache[wavelengthsCache.Length - 1];
         public double SaturationLevel => (double)0xFFFF;
         public double MinimumIntegrationTime => 0.00001; // seconds
         public double MaximumIntegrationTime => 30.0; // seconds
@@ -59,7 +59,7 @@ namespace Bev.Instruments.Thorlabs.Ctt
         public double GetIntegrationTime()
         {
             float exposureTime = spectrometer.ManualExposure;
-            return exposureTime/1000.0;
+            return exposureTime / 1000.0;
         }
 
         // Integration time in seconds
@@ -69,6 +69,7 @@ namespace Bev.Instruments.Thorlabs.Ctt
             if (timeSeconds > MaximumIntegrationTime) timeSeconds = MaximumIntegrationTime;
             double timeMs = timeSeconds * 1000.0;
             spectrometer.SetManualExposureAsync(exposure: (float)timeMs, CancellationToken.None).Wait();
+            _ = GetIntensityData(); // throw away first scan after changing integration time
         }
 
         public double[] GetIntensityData()
